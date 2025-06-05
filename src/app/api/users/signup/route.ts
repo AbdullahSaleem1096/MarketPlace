@@ -1,12 +1,11 @@
-import connect from '@/dbConfig/dbConfig';
+import { connect } from '@/dbConfig/dbConfig';
 import User from '@/models/userModels';
 import bcrypt from 'bcryptjs';
-import { NextRequest,NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-connect();
-
-export async function POST(request: NextRequest){
-    try{
+export async function POST(request: NextRequest) {
+    try {
+        await connect();
         const reqBody = await request.json();
         const {username,email,password,role,phoneNumber,department,hostel,roomNumber} = reqBody;
     
@@ -27,9 +26,11 @@ export async function POST(request: NextRequest){
             password:hashedPassword,
             role,
             phoneNumber,
-            department,
-            hostel,
-            roomNumber
+            address:{
+                department,
+                hostel,
+                roomNumber
+            }
         })
     
         const savedUser = await newUser.save();
