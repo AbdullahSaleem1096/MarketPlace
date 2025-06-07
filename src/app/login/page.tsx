@@ -45,6 +45,7 @@ export default function LoginPage(){
             placeholder="email"
              />
             <button onClick={onLogin}>Login</button>
+            <Link href="/signup">Visit signup page</Link>
         </div>
     )
 }
