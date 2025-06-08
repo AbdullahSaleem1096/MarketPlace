@@ -14,8 +14,25 @@ export default function LoginPage(){
     const onLogin = async () =>{
         try{
             const response = await axios.post("/api/users/login",user);
-            console.log(response.data);
-            router.push("/home");
+            console.log("Login response:", response.data);
+            console.log("User role:", response.data.role);
+            
+            if (response.data.role === "seller") {
+                console.log("User is a seller, checking store status...");
+                // Check if seller has a store
+                const storeResponse = await axios.get("/api/store/check");
+                console.log("Store check response:", storeResponse.data);
+                if (storeResponse.data.hasStore) {
+                    console.log("Seller has store, redirecting to SellerDashboard");
+                    router.push("/SellerDashboard");
+                } else {
+                    console.log("Seller has no store, redirecting to CreateStore");
+                    router.push("/CreateStore");
+                }
+            } else {
+                console.log("User is a buyer, redirecting to home");
+                router.push("/home");
+            }
         }
         catch(err:any){
             console.log('Login failed ',err.message);
