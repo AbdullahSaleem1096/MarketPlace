@@ -47,19 +47,14 @@ export default function Home() {
 
     return (
         <div>
-            <h2>Home</h2>
-            <hr />
-            <div>
-                {products.map((product) => (
-                    <div key={product._id}>
-                        <img src={product.image} alt={product.name} />
-                        <h2>{product.name}</h2>
-                        <p>${product.price}</p>
-                    </div>
-                ))}
+        {products.map((product) => (
+            <div key={product._id} onClick={()=> router.push(`/ProductDetails/${product._id}`)}>
+                <img src={product.image} alt={product.name} />
+                <h2>{product.name}</h2>
+                <p>${product.price}</p>
             </div>
-            <hr />
-            <button onClick={logout}>Logout</button>
-        </div>
+        ))}
+        <button onClick={logout}>Logout</button>
+    </div>
     )
 }
