@@ -7,7 +7,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   await connect();
 
   try {
-    const { id } = params
+    const { id } = await params;
 
     // 1. Fetch the product and increment the view count
     const product = await Product.findByIdAndUpdate(

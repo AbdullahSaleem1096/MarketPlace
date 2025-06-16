@@ -26,6 +26,18 @@ export default function Home() {
             console.log(error.message);
         }
     }
+    const AddToWishlist = async (productId: string) => {
+        try {
+            const response = await axios.post('/api/wishlist/add', { productId });
+            if (response.data.success) {
+                alert("Added to wishlist");
+            } else {
+                alert(response.data.message || "Error adding to wishlist");
+            }
+        } catch (error: any) {
+            alert("Error: " + error.message);
+        }
+    };
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -52,6 +64,12 @@ export default function Home() {
                 <img src={product.image} alt={product.name} />
                 <h2>{product.name}</h2>
                 <p>${product.price}</p>
+                <button onClick={(e) => {
+                    e.stopPropagation(); 
+                    AddToWishlist(product._id);
+                    }}>Add to wishlist
+                </button>
+
             </div>
         ))}
         <button onClick={logout}>Logout</button>

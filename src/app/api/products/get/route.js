@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function GET() {
     try {
         await connect();
-        
         const products = await Product.find({ isAvailable: true })
             .sort({ createdAt: -1 });
 
