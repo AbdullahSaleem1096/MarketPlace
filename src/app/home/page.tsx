@@ -59,6 +59,8 @@ export default function Home() {
 
     return (
         <div>
+        <button onClick={() => router.push('/wishlist')}>Go to Wishlist</button>
+
         {products.map((product) => (
             <div key={product._id} onClick={()=> router.push(`/ProductDetails/${product._id}`)}>
                 <img src={product.image} alt={product.name} />
